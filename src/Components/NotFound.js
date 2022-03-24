@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function () {
   return (
@@ -6,7 +7,7 @@ export default function () {
       <h1>404!</h1>
       <p>
         Lamento. Essa página não existe ou foi removida <br />
-        <a href="#">Voltar para a tabela de livros</a>
+        <Link to={'/'}> Voltar para a tabela de livros</Link>
       </p>
     </div>
   )

@@ -1,5 +1,8 @@
 import TabelaLivros from './Components/TabelaLivros'
 import Menu from './Components/Menu'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import CadastrarLivros from './Components/CadastrarLivros'
+import NotFound from './Components/NotFound'
 // import { Component } from 'react'
 import { useState } from 'react'
 function App() {
@@ -48,10 +51,18 @@ function App() {
   // setLivros(...Json)
 
   return (
-    <div className="App">
+    <Router>
       <Menu />
-      <TabelaLivros livros={livros} />
-    </div>
+      <Routes>
+        <Route path="/" element={<TabelaLivros livros={livros} />} />
+        <Route path="/cadastrar" element={<CadastrarLivros />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
+    // <div className="App">
+    //   <Menu />
+    //   <TabelaLivros livros={livros} />
+    // </div>
   )
 }
 
