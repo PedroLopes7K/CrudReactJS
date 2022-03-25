@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 export default function TabelaLivros({ livros }) {
   return (
     <div className="livros">
@@ -24,7 +24,9 @@ export default function TabelaLivros({ livros }) {
                 <td>{livro.titulo}</td>
                 <td>{livro.autor}</td>
                 <td>
-                  <button className="botao editar">Editar</button>
+                  <button className="botao editar">
+                    <Link to={`/editar/${livro.id}`}>Editar</Link>
+                  </button>
                 </td>
                 <td>
                   <button className="botao remover">Remover</button>

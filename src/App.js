@@ -3,6 +3,7 @@ import Menu from './Components/Menu'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import CadastrarLivros from './Components/CadastrarLivros'
 import NotFound from './Components/NotFound'
+import EditarLivro from './Components/EditarLivro'
 // import { Component } from 'react'
 import { useState } from 'react'
 function App() {
@@ -29,7 +30,15 @@ function App() {
 
   function inserirLivros(livro) {
     livro.id = livros.length + 1
-    setLivros([...livros, livro])
+    setLivros([...livros, livro]) // precisa estar envolvido entre barras para gerar um novo array
+  }
+
+  const editarLivro = livro => {
+    // console.log(livro)
+    const index = livros.findIndex(p => p.id === livro.id)
+    const books = livros.slice(0, index).concat(livro.slice(index + 1))
+    const novosLivros = [...books, livro].sort((a, b) => a.id - b.id)
+    setLivros(novosLivros)
   }
 
   return (
@@ -46,6 +55,28 @@ function App() {
               livro={{ id: 0, isbn: '', titulo: '', autor: '' }}
             />
           }
+        />
+
+        <Route
+          path="/editar/:id"
+          element={
+            <EditarLivro
+              editLivro={editarLivro}
+              books={livros}
+              livro={{ id: 0, isbn: '', titulo: '', autor: '' }}
+            />
+          }
+          // element={props => {
+
+          //   const livro = livros.find(
+          //     livro => livro.id === props.match.params.idLivro
+          //   )
+          //   if (livro) {
+          //     return <CadastrarLivros editarLivro={editarLivro} livro={livro} />
+          //   } else {
+          //     return <NotFound />
+          //   }
+          // }}
         />
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -1,11 +1,11 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
-export default function CadastrarLivros(props) {
+export default function EditarLivro(props) {
   const [redirect, setRedirect] = useState(false)
   const navigate = useNavigate()
-
+  const { id } = useParams()
   const [book, setBook] = useState({
     id: props.livro.id,
     isbn: props.livro.isbn,
@@ -13,10 +13,18 @@ export default function CadastrarLivros(props) {
     autor: props.livro.autor
   })
 
+  useEffect(() => {
+    for (let i = 0; i < props.books.length; i++) {
+      if (props.books[i].id === id) {
+        console.log(props.books[i])
+      }
+    }
+  })
+
   function handleLivroForm(e) {
     e.preventDefault()
-
-    props.addLivro(book)
+    props.editLivro(book)
+    // props.addLivro(book)
     setRedirect(true)
   }
 
@@ -28,7 +36,7 @@ export default function CadastrarLivros(props) {
   navega()
   return (
     <form onSubmit={handleLivroForm}>
-      <h1>Cadastrar Novo Livro</h1>
+      <h1>EDITAR LIVRO</h1>
       <p>
         <label htmlFor="fisbn">
           ISBN: Formato - (
