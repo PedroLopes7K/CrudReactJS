@@ -27,6 +27,11 @@ function App() {
     }
   ])
 
+  function inserirLivros(livro) {
+    livro.id = livros.length + 1
+    setLivros(...livros, livro)
+  }
+
   // const Json = [
   //   {
   //     id: 1,
@@ -55,7 +60,15 @@ function App() {
       <Menu />
       <Routes>
         <Route path="/" element={<TabelaLivros livros={livros} />} />
-        <Route path="/cadastrar" element={<CadastrarLivros />} />
+        <Route
+          path="/cadastrar"
+          element={
+            <CadastrarLivros
+              addLivro={inserirLivros}
+              livro={{ id: 0, isbn: '', titulo: '', autor: '' }}
+            />
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
