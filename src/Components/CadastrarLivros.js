@@ -1,27 +1,38 @@
 import React from 'react'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 export default function CadastrarLivros(props) {
+  // const [texto, setTexto] = useState('')
+  const [redirect, setRedirect] = useState(false)
+  const navigate = useNavigate()
+
   const [book, setBook] = useState({
     id: props.livro.id,
     isbn: props.livro.isbn,
     titulo: props.livro.titulo,
     autor: props.livro.autor
   })
-  // const [redirect, setRedirect] = useState(false)
-  // const navigate = useNavigate()
+
+  // function inserirLivros() {
+  //   props.setLivros(prev => {
+  //     book.id = prev.length + 1
+  //     return [...prev, book]
+  //   })
+  // }
 
   function handleLivroForm(e) {
     e.preventDefault()
+    // inserirLivros()
     props.addLivro(book)
-    // setRedirect(true)
+    setRedirect(true)
   }
 
-  // function navega() {
-  //   if (redirect === true) {
-  //     navigate('/')
-  //   }
-  // }
+  function navega() {
+    if (redirect === true) {
+      navigate('/')
+    }
+  }
+  navega()
   return (
     <form onSubmit={handleLivroForm}>
       <h1>Cadastrar Novo Livro</h1>
