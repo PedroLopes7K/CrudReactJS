@@ -41,8 +41,9 @@ function App() {
   }
 
   const editarLivro = livro => {
-    const index = livros.findIndex(p => p.id === livro.id)
-    const books = livros.slice(0, index).concat(livro.slice(index + 1))
+    // alert('TUDO OK')
+    const index = livros.findIndex(p => p.id == livro.id)
+    const books = livros.slice(0, index).concat(livros.slice(index + 1))
     const novosLivros = [...books, livro].sort((a, b) => a.id - b.id)
     setLivros(novosLivros)
   }
@@ -74,7 +75,7 @@ function App() {
          element={props => {
 
             const livro = livros.find(
-              livro => livro.id === props.match.params.idLivro
+              livro => livro.id === props.match.params.id
             )
             if (livro) {
               return <CadastrarLivros editarLivro={editarLivro} livro={livro} />
