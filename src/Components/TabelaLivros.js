@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-export default function TabelaLivros({ livros }) {
+export default function TabelaLivros({ livros, removerLivro }) {
   return (
     <div className="livros">
       <h1>Tabela de livros</h1>
@@ -29,7 +29,14 @@ export default function TabelaLivros({ livros }) {
                   </button>
                 </td>
                 <td>
-                  <button className="botao remover">Remover</button>
+                  <button
+                    className="botao remover"
+                    onClick={() => {
+                      removerLivro(livro)
+                    }}
+                  >
+                    Remover
+                  </button>
                 </td>
               </tr>
             ))}

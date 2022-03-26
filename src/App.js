@@ -28,13 +28,19 @@ function App() {
     }
   ])
 
+  function removerLivro(livro) {
+    if (window.confirm('Remover esse livro?')) {
+      const newBooks = livros.filter(p => p.id !== livro.id)
+      setLivros(newBooks)
+    }
+  }
+
   function inserirLivros(livro) {
     livro.id = livros.length + 1
     setLivros([...livros, livro]) // precisa estar envolvido entre barras para gerar um novo array
   }
 
   const editarLivro = livro => {
-    // console.log(livro)
     const index = livros.findIndex(p => p.id === livro.id)
     const books = livros.slice(0, index).concat(livro.slice(index + 1))
     const novosLivros = [...books, livro].sort((a, b) => a.id - b.id)
@@ -45,7 +51,10 @@ function App() {
     <Router>
       <Menu />
       <Routes>
-        <Route path="/" element={<TabelaLivros livros={livros} />} />
+        <Route
+          path="/"
+          element={<TabelaLivros livros={livros} removerLivro={removerLivro} />}
+        />
         <Route
           path="/cadastrar"
           element={
@@ -59,25 +68,20 @@ function App() {
 
         <Route
           path="/editar/:id"
-          element={
-            <EditarLivro
-              editLivro={editarLivro}
-              books={livros}
-              livro={{ id: 0, isbn: '', titulo: '', autor: '' }}
-            />
-          }
-          // element={props => {
-
-          //   const livro = livros.find(
-          //     livro => livro.id === props.match.params.idLivro
-          //   )
-          //   if (livro) {
-          //     return <CadastrarLivros editarLivro={editarLivro} livro={livro} />
-          //   } else {
-          //     return <NotFound />
-          //   }
-          // }}
+          element={<EditarLivro editarLivro={editarLivro} books={livros} />}
         />
+        {/*        
+         element={props => {
+
+            const livro = livros.find(
+              livro => livro.id === props.match.params.idLivro
+            )
+            if (livro) {
+              return <CadastrarLivros editarLivro={editarLivro} livro={livro} />
+            } else {
+              return <NotFound />
+            }
+          }} */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
